@@ -7,8 +7,8 @@ namespace astralSafeClientMaui
     internal class JsonRequest
     {
         public string UID { get; set; }
-        public string License { get; set; }
-        public string Key { get; set; }
+        public string license { get; set; }
+        public string key { get; set; }
         public bool Valid { get; set; }
 
         private readonly HttpClient HttpClient;
@@ -22,8 +22,8 @@ namespace astralSafeClientMaui
             HttpClient = new();
 
             UID = null;
-            License = null;
-            Key = null;
+            license = null;
+            key = null;
             Valid = false;
         }
 
@@ -35,7 +35,7 @@ namespace astralSafeClientMaui
         public JsonRequest(string UID, string license) : this()
         {
             this.UID = UID;
-            License = license;
+            this.license = license;
         }
 
         public void SendRequest(string option)
@@ -55,7 +55,7 @@ namespace astralSafeClientMaui
                     
                 case "validate-license":
 
-                    jsonSent = "{\"uid\":\"" + UID + "\",\"license\":\"" + License + "\"}";
+                    jsonSent = "{\"uid\":\"" + UID + "\",\"license\":\"" + license + "\"}";
                     jsonReturned = Send(json: jsonSent, endpoint: option);
                     break;
                     
@@ -70,8 +70,8 @@ namespace astralSafeClientMaui
 
             JsonRequest jr = JsonSerializer.Deserialize<JsonRequest>(json: jsonReturned);
 
-            Key = jr.Key;
-            License = jr.License;
+            key = jr.key;
+            license = jr.license;
         }
 
         private string Send(string json, string endpoint)

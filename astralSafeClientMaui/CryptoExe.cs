@@ -19,8 +19,6 @@ namespace astralSafeClientMaui
         {
             Executable = null;
 
-            GetFileBytes();
-
             Path = GetExePath();
 
             Key = null;
@@ -46,21 +44,6 @@ namespace astralSafeClientMaui
             tmp = Directory.GetParent(path: tmp).FullName;
 
             return tmp + "\\Resources\\Raw\\main.exe";
-        }
-
-        public async void GetFileBytes()
-        {
-            Stream s = FileSystem.OpenAppPackageFileAsync(filename: "main.exe").GetAwaiter().GetResult();
-
-            byte[] buffer = new byte[s.Length];
-
-            await s.ReadAsync(buffer: buffer.AsMemory(0, (int)s.Length));
-
-            Executable = buffer;
-
-            s.Close();
-
-            s.Dispose();
         }
 
         public static byte[] StringToByteArray(string key)
@@ -119,7 +102,7 @@ namespace astralSafeClientMaui
             byte[] encryptedContent = new byte[Executable.Length - 16]; //the rest should be encryptedcontent
 
             //Copy data to byte array
-            Buffer.BlockCopy(src:  Executable, srcOffset: 0, dst: iv, dstOffset: 0, count: iv.Length);
+            Buffer.BlockCopy(src: Executable, srcOffset: 0, dst: iv, dstOffset: 0, count: iv.Length);
             Buffer.BlockCopy(src: Executable, srcOffset: iv.Length, dst: encryptedContent, dstOffset: 0, count: encryptedContent.Length);
 
             using MemoryStream ms = new();
@@ -132,7 +115,6 @@ namespace astralSafeClientMaui
             using (CryptoStream cs = new(stream: ms, transform: Aes.CreateDecryptor(Key, iv), mode: CryptoStreamMode.Write))
             {
                 cs.Write(buffer: encryptedContent, offset: 0, count: encryptedContent.Length);
-
             }
 
             File.WriteAllBytes(path: Path, bytes: ms.ToArray());

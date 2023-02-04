@@ -34,9 +34,9 @@ public partial class MainPage : ContentPage
 
             JsonRequestKeygen = jsonRequest;
 
-            txtLicense.Text = JsonRequestKeygen.License;
-
-            string key = JsonRequestKeygen.Key;
+            txtLicense.Text = JsonRequestKeygen.license;
+            
+            string key = JsonRequestKeygen.key;
 
             byte[] bytes = CryptoExe.StringToByteArray(key: key);
 
@@ -70,7 +70,7 @@ public partial class MainPage : ContentPage
 
             JsonRequestLicense = jsonRequest;
 
-            if(!string.IsNullOrEmpty(value: JsonRequestLicense.Key))
+            if(!string.IsNullOrEmpty(value: JsonRequestLicense.key))
             {
                 DisplayAlert(title: "Informazione", message: "La licenza è valida", cancel: "OK");
 
