@@ -15,8 +15,8 @@ The program encrypts and decrypts a file called main.exe, which is located in th
 
 ## Usage
 
-The GUI has two functions: the first one uses the key generation API endpoint while the second one asks the server to validate the license.
+The GUI has two functions: the first uses the key generation API endpoint, while the second asks the server to validate the license.
 
-In the first case the client sends a uid in this format "xxxx-xxxx-xxxx-xxxx" to the server which returns the license and a key.
+In the first case, the client sends a uid in the format "xxxx-xxxx-xxxx-xxxx" to the server, which returns the license and a key.
 
-In the second case the client sends a uid and the license and the server returns the key used to encrypt the data
+In the second case, the client sends a uid and license and the server returns the key used to encrypt the license.
